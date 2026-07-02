@@ -1,5 +1,7 @@
+import random
+
 import discord
-from discord.ext import commands
+from discord.ext import commands, tasks
 
 # --- Configuration ---
 # Replace these values with your own before running the bot.
@@ -32,6 +34,15 @@ bot = commands.Bot(command_prefix="!", intents=intents)
 @bot.event
 async def on_ready():
     print(f"Logged in as {bot.user}")
+    if not post_random_number.is_running():
+        post_random_number.start()
+
+
+@tasks.loop(minutes=1)
+async def post_random_number():
+    channel = bot.get_channel(MONITORED_CHANNEL_ID)
+    if channel is not None:
+        await channel.send(str(random.randint(1, 66000)))
 
 
 @bot.event
