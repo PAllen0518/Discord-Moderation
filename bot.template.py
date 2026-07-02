@@ -9,8 +9,8 @@ TOKEN = "YOUR_BOT_TOKEN_HERE"
 MONITORED_CHANNEL_ID = 123456789012345678  # ID of the channel to enforce bans in
 GUILD_ID = 123456789012345678              # ID of your Discord server
 
-# Users with any of these roles are allowed to post freely
-EXEMPT_ROLE_IDS = {123456789012345678, 123456789012345678}
+# Users with any of these roles are allowed to post freely (includes the bot's own role)
+EXEMPT_ROLE_IDS = {123456789012345678, 123456789012345678, 123456789012345678}
 
 # The bot's own user ID — prevents it from acting on itself
 BOT_ID = 123456789012345678
@@ -72,7 +72,7 @@ async def on_message(message: discord.Message):
     if message.author.id == BOT_ID:
         return
 
-    # Allow users with an exempt role to post freely
+    # Allow users with an exempt role to post freely (matched by role ID, not name)
     user_roles = {role.id for role in member.roles}
     if user_roles & EXEMPT_ROLE_IDS:
         await bot.process_commands(message)
