@@ -47,10 +47,8 @@ async def post_random_number():
 
 @bot.event
 async def on_message(message: discord.Message):
-    print(f"Message from {message.author} in #{message.channel}")
-
-    # Ignore messages from other bots
-    if message.author.bot:
+    # Skip the bot itself
+    if message.author.id == BOT_ID:
         return
 
     # DMs have no guild — ignore them
@@ -59,17 +57,12 @@ async def on_message(message: discord.Message):
 
     # Only enforce rules in the monitored channel
     if message.channel.id != MONITORED_CHANNEL_ID:
-        print(f"Ignoring channel {message.channel.id}, watching {MONITORED_CHANNEL_ID}")
         await bot.process_commands(message)
         return
 
     member = message.guild.get_member(message.author.id)
     if member is None:
         await bot.process_commands(message)
-        return
-
-    # Skip the bot itself
-    if message.author.id == BOT_ID:
         return
 
     # Allow users with an exempt role to post freely (matched by role ID, not name)
