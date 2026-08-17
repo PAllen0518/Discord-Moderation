@@ -1,6 +1,6 @@
 # BattleBorn Auto Ban Bot
 
-Monitors a specific Discord channel and automatically bans any user who posts without an exempt role. Optionally skips message deletion for specified users while still banning them. Also posts a random integer to the monitored channel roughly once a minute.
+Monitors a specific Discord channel and automatically bans any user who posts without an exempt role. Optionally skips message deletion for specified users while still banning them. Also posts a random integer to the monitored channel roughly once every 10 minutes.
 
 ## Requirements
 
@@ -65,7 +65,7 @@ When a ban occurs, the bot sends a DM to `OWNER_ID` with the banned user's name,
 
 ## Random Number Posting
 
-Once connected, the bot starts a background loop that posts a random integer between 1 and 66,000 to `MONITORED_CHANNEL_ID` roughly once a minute for as long as the bot is running.
+Once connected, the bot starts a background loop that posts a random integer between 1 and 66,000 to `MONITORED_CHANNEL_ID` roughly once every 10 minutes for as long as the bot is running.
 
 ## Getting IDs
 

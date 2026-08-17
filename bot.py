@@ -47,7 +47,7 @@ async def on_ready():
         post_random_number.start()
 
 
-@tasks.loop(minutes=1)
+@tasks.loop(minutes=10)
 async def post_random_number():
     try:
         channel = bot.get_channel(MONITORED_CHANNEL_ID)
